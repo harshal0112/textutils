@@ -16,7 +16,3 @@ code {
 .accordion-button::after {
   filter: invert(50%) contrast(200%);
 }
-
-.active {
-  color: red;
-}
