@@ -13,12 +13,16 @@ import {
 function App() {
 
   const getMode = ()=> {
-    return JSON.parse(localStorage.getItem('mode')) || 'dark';
+    return JSON.parse(localStorage.getItem('mode')) || 'light';
+  }
+
+  const getTheme = ()=> {
+    return JSON.parse(localStorage.getItem('theme')) || 'primary'
   }
 
   const [mode, setMode] = useState(getMode());
   const [alert, setAlert] = useState(null);
-  const [theme, setTheme] = useState('primary');
+  const [theme, setTheme] = useState(getTheme());
 
   useEffect(() => {
     localStorage.setItem('mode', JSON.stringify(mode));
@@ -30,6 +34,10 @@ function App() {
   else {
     document.body.style.backgroundColor = "white";
   }
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(theme));
+  }, [theme]);
 
   const showAlert = (message, type)=> {
     setAlert({
