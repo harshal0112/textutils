@@ -1,7 +1,7 @@
 import './App.css';
 import Navbar from './doc/Navbar';
 import TextForm from './doc/TextForm';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Alert from './doc/Alert';
 import About from './doc/About';
 import {
@@ -11,10 +11,25 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [mode, setMode] = useState('light');
+
+  const getMode = ()=> {
+    return JSON.parse(localStorage.getItem('mode')) || 'dark';
+  }
+
+  const [mode, setMode] = useState(getMode());
   const [alert, setAlert] = useState(null);
   const [theme, setTheme] = useState('primary');
-  const [modeName, setModeName] = useState('Dark');
+
+  useEffect(() => {
+    localStorage.setItem('mode', JSON.stringify(mode));
+  }, [mode]);
+  
+  if (mode === 'dark') {
+    document.body.style.backgroundColor = "#0f0f0f";
+  }
+  else {
+    document.body.style.backgroundColor = "white";
+  }
 
   const showAlert = (message, type)=> {
     setAlert({
@@ -32,13 +47,11 @@ function App() {
       setMode('dark');
       document.body.style.backgroundColor = "#0f0f0f";
       showAlert('Dark mode had been enabled', 'success');
-      setModeName('Light');
     }
     else {
       setMode('light');
       document.body.style.backgroundColor = "white";
       showAlert('Light mode had been enabled', 'success');
-      setModeName('Dark');
     }
   }
 
@@ -49,7 +62,7 @@ function App() {
   return (
    <>
    <Router>
-    <Navbar title="TextUtils" aboutText="About" modeName={modeName} theme={theme} mode={mode} toggleMode={toggleMode} toggleTheme={toggleTheme}/>
+    <Navbar title="TextUtils" aboutText="About" theme={theme} mode={mode} toggleMode={toggleMode} toggleTheme={toggleTheme}/>
       <Alert  alert={alert}/>
       <div className='container my-3'>
           <Routes>

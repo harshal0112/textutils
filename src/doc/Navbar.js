@@ -21,7 +21,7 @@ function Navbar(props) {
           <NavLink className="nav-link" to="/about">{props.aboutText}</NavLink>
         </li>
       </ul>
-      <Themes toggleMode={props.toggleMode} toggleTheme={props.toggleTheme} mode={props.mode} modeName={props.modeName}/>
+      <Themes toggleMode={props.toggleMode} toggleTheme={props.toggleTheme} mode={props.mode} />
       <form className="d-flex" role="search">
         <input className={`form-control me-2 border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} type="search" placeholder="Search" aria-label="Search" />
         <button className={`btn btn-${props.theme}`} type="submit">Search</button>
