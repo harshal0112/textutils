@@ -22,7 +22,7 @@ function Navbar(props) {
         </li>
       </ul>
       <Themes toggleMode={props.toggleMode} theme={props.theme} toggleTheme={props.toggleTheme} mode={props.mode} />
-      <form className="d-flex" role="search">
+      <form className="d-flex mt-sm-2 mt-lg-0" role="search">
         <input className={`form-control me-2 border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} type="search" placeholder="Search" aria-label="Search" />
         <button className={`btn btn-${props.theme}`} type="submit">Search</button>
       </form>
