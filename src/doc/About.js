@@ -1,8 +1,8 @@
 import React from 'react'
 
-function About() {
+function About(props) {
   return (
-    <div className='container'>
+    <div className={`container text-${props.mode === 'light'? 'dark': 'light'}`}>
         <h1>About</h1>
             <p>TextUtils is a feature-rich and customizable text editor that allows you to easily input, edit, and manipulate text to suit your needs. Whether you are a writer, a developer, or just someone who needs to work with text on a daily basis, TextUtils has something to offer you.</p>
         <h2>Features</h2>

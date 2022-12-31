@@ -1,8 +1,16 @@
 import PropTypes from 'prop-types'
 import Themes from "./Themes";
 import { NavLink, Link } from "react-router-dom";
+import React, {useContext, useState, useEffect} from 'react';
+import { MyContext } from './MyContextProvider';
 
 function Navbar(props) {
+  const [search, setSearch] = useState('');
+  const {setSearchText} = useContext(MyContext);
+  useEffect(() => {
+    setSearchText(search);
+    
+  }, [setSearchText, search])
 
     return(
         <>
@@ -26,8 +34,8 @@ function Navbar(props) {
       </ul>
       <Themes toggleMode={props.toggleMode} theme={props.theme} toggleTheme={props.toggleTheme} mode={props.mode} />
       <form className="d-flex mt-sm-2 mt-lg-0" role="search">
-        <input className={`form-control me-2 border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} type="search" placeholder="Search" aria-label="Search" />
-        <button className={`btn btn-${props.theme}`} type="submit">Search</button>
+        <input className={`form-control me-2 border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} value={search} onChange={e => setSearch(e.target.value)} type="search" placeholder="Search" aria-label="Search" />
+        <button className={`btn btn-${props.theme}`} type="submit">{search?'Reset': 'Search'}</button>
       </form>
     </div>
   </div>

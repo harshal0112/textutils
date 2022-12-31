@@ -10,6 +10,7 @@ import {
   Route,
   Routes
 } from "react-router-dom";
+import MyContextProvider from './doc/MyContextProvider';
 
 function App() {
 
@@ -68,8 +69,10 @@ function App() {
     setTheme(event)
   }
 
+
   return (
    <>
+   <MyContextProvider>
    <Router>
     <Navbar title="TextUtils" theme={theme} mode={mode} toggleMode={toggleMode} toggleTheme={toggleTheme}/>
       <Alert  alert={alert} theme={theme}/>
@@ -83,6 +86,7 @@ function App() {
         {/* <TextForm showAlert={showAlert} heading="Enter your text to Analyze." mode={mode} theme={theme}/> */}
       </div>
    </Router>
+   </MyContextProvider>
    </>
   );
 }

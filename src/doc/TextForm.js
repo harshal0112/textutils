@@ -1,6 +1,8 @@
 import React, {useState, useRef} from 'react'
-import Find from './Find';
+// import Find from './Find';
 import Replace from './Replace';
+import { useContext } from 'react';
+import { MyContext } from './MyContextProvider';
 
 export default function TextForm(props) {
     const [text, setText] = useState('');
@@ -8,6 +10,9 @@ export default function TextForm(props) {
     const redoStack = useRef([]);
     console.log("Undo =",undoStack.current.length);
     console.log("Redo",redoStack.current.length);
+
+    const {searchText} = useContext(MyContext);
+    console.log(searchText)
 
     const handleOnChange = (event)=>{
         const {value} = event.target;
@@ -96,9 +101,9 @@ export default function TextForm(props) {
     const reset = ()=> {
       document.getElementById('replace-text').reset();
     }
-    const reset2 = ()=> {
-    document.getElementById('replace-text2').reset();
-    }
+    // const reset2 = ()=> {
+    // document.getElementById('replace-text2').reset();
+    // }
 
     const [inputText, setInputText] = useState(null);
     const [inputReplace, setInputReplace] = useState(null);
@@ -114,6 +119,32 @@ export default function TextForm(props) {
         const newText = text.replace(new RegExp(inputText, 'g'), inputReplace);
         setText(newText);
       }
+    };
+
+    const highlight = (text, search) => {
+      // Escape the search term to avoid errors
+      const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${escapedSearch})`, 'gi');
+      const parts = text.split(regex);
+      return (
+        <>
+          {parts.map((part, i) => 
+            part.toLowerCase() === search.toLowerCase() ? (
+              <span key={i} className="highlighted" style={{backgroundColor: 'Highlight'}}>{part}</span>
+            ) : (
+              part
+            )
+          )}
+        </>
+      );
+    };
+    
+    const Preview = ({ text, search }) => {
+      return (
+        <div>
+          {highlight(text, search)}
+        </div>
+      );
     };
 
   return (
@@ -132,18 +163,18 @@ export default function TextForm(props) {
         <button disabled={undoStack.current.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleUndo}>Undo</button>
         <button disabled={redoStack.current.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleRedo}>Redo</button>
         <button type="button" disabled={text.length === 0} onClick={reset} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal">Replace</button>
-        <button type="button" disabled={text.length === 0} onClick={reset2} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal2">Find</button>
+        {/* <button type="button" disabled={text.length === 0} onClick={reset2} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal2">Find</button> */}
 
         {/* --------------------------------------------------------- */}
         <Replace theme={props.theme} mode={props.mode} inputText={inputText} setInputText={setInputText} inputReplace={inputReplace} setInputReplace={setInputReplace} handleReplace={handleReplace}/>
-        <Find theme={props.theme} mode={props.mode} />
+        {/* <Find theme={props.theme} mode={props.mode} /> */}
     </div>
     <div className='container my-3' style={{color: props.mode=== 'dark'?'white': 'black'}}>
         <h2>Your text Summary</h2>
         <p>{text.split(/\s+/).filter((element)=>{return element.length !== 0}).length} words and {text.length} characters</p>
         <p>{0.008* text.split(" ").filter((element)=>{return element.length !== 0}).length} Minutes read</p>
         <h2>Preview</h2>
-        <p>{text.length>0?text:"Nothing to preview."}</p>
+        <p>{<Preview text={text} search={searchText}/>?<Preview text={text} search={searchText}/>:text?text:"Nothing to preview."}</p>
     </div>
     </>
   )
