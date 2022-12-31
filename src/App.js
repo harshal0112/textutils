@@ -3,6 +3,7 @@ import Navbar from './doc/Navbar';
 import TextForm from './doc/TextForm';
 import React, { useEffect, useState } from 'react';
 import Alert from './doc/Alert';
+import FAQ from './doc/FAQ';
 import About from './doc/About';
 import {
   BrowserRouter as Router,
@@ -70,11 +71,12 @@ function App() {
   return (
    <>
    <Router>
-    <Navbar title="TextUtils" aboutText="About" theme={theme} mode={mode} toggleMode={toggleMode} toggleTheme={toggleTheme}/>
-      <Alert  alert={alert}/>
+    <Navbar title="TextUtils" theme={theme} mode={mode} toggleMode={toggleMode} toggleTheme={toggleTheme}/>
+      <Alert  alert={alert} theme={theme}/>
       <div className='container my-3'>
           <Routes>
-            <Route path="/about" element={<About mode={mode} theme={theme}/>} />
+            <Route path="/about2" element={<About mode={mode} theme={theme}/>} />
+            <Route path="/about" element={<FAQ mode={mode} theme={theme}/>} />
             <Route path="/" element={<TextForm showAlert={showAlert} heading="Enter your text to Analyze." mode={mode} theme={theme}/>}/>
           </Routes>
         {/* <About mode={mode} theme={theme}/> */}

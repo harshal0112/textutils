@@ -1,4 +1,6 @@
 import React, {useState, useRef} from 'react'
+import Find from './Find';
+import Replace from './Replace';
 
 export default function TextForm(props) {
     const [text, setText] = useState('');
@@ -36,8 +38,13 @@ export default function TextForm(props) {
       const handleRedo = () => {
         if (redoStack.current.length > 0) {
           const redo = redoStack.current.pop();
-          undoStack.current.push(redo);
-          console.log(redo)
+          if (redo === "Ü")
+          {
+            undoStack.current.push("");
+          }
+          else {
+            undoStack.current.push(redo);
+          }
           setText(undoStack.current[undoStack.current.length - 1]);
         }
       };
@@ -69,11 +76,45 @@ export default function TextForm(props) {
         props.showAlert('Text Copied to Clipboard.', 'success');
     }
 
+    const handlePaste = async () => {
+      try {
+        const data = await navigator.clipboard.readText();
+        setText(text + data);
+        undoStack.current.push(text+"Ü");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     const handleExtraSpaces = ()=> {
         let newText = text.split(/[ ]+/);
+        undoStack.current.push(text+"Ü");
         setText(newText.join(" "));
         props.showAlert('Extra Spaces Removed.', 'success');
     }
+
+    const reset = ()=> {
+      document.getElementById('replace-text').reset();
+    }
+    const reset2 = ()=> {
+    document.getElementById('replace-text2').reset();
+    }
+
+    const [inputText, setInputText] = useState(null);
+    const [inputReplace, setInputReplace] = useState(null);
+
+    // const printInput = ()=> {
+    //   console.log(inputText, inputReplace)
+    // }
+
+    const handleReplace = () => {
+      if (text.indexOf(inputText) === -1) {
+        props.showAlert(`"${inputText}" Not Found in TextBox.`, 'error');
+      } else {
+        const newText = text.replace(new RegExp(inputText, 'g'), inputReplace);
+        setText(newText);
+      }
+    };
 
   return (
     <>
@@ -86,9 +127,16 @@ export default function TextForm(props) {
         <button disabled={text === text.toLowerCase()} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleLoClick}>Convert to LowerCase</button>
         <button disabled={text.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleClearClick}>Clear Text</button>
         <button disabled={text.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleCopy}>Copy Text</button>
+        <button className={`btn btn-${props.theme} mx-1 my-1`} onClick={handlePaste}>Paste from clipboard</button>
         <button disabled={text.match(/^.*\s{2,}.*$/) === null} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleExtraSpaces}>Remove Extra Spaces</button>
         <button disabled={undoStack.current.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleUndo}>Undo</button>
         <button disabled={redoStack.current.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleRedo}>Redo</button>
+        <button type="button" disabled={text.length === 0} onClick={reset} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal">Replace</button>
+        <button type="button" disabled={text.length === 0} onClick={reset2} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal2">Find</button>
+
+        {/* --------------------------------------------------------- */}
+        <Replace theme={props.theme} mode={props.mode} inputText={inputText} setInputText={setInputText} inputReplace={inputReplace} setInputReplace={setInputReplace} handleReplace={handleReplace}/>
+        <Find theme={props.theme} mode={props.mode} />
     </div>
     <div className='container my-3' style={{color: props.mode=== 'dark'?'white': 'black'}}>
         <h2>Your text Summary</h2>
