@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react'
 // import Find from './Find';
-import Replace from './Replace';
+import ReplaceX from './ReplaceX';
 import { useContext } from 'react';
 import { MyContext } from './MyContextProvider';
 
@@ -8,11 +8,8 @@ export default function TextForm(props) {
     const [text, setText] = useState('');
     const undoStack = useRef([]);
     const redoStack = useRef([]);
-    console.log("Undo =",undoStack.current.length);
-    console.log("Redo",redoStack.current.length);
 
     const {searchText} = useContext(MyContext);
-    console.log(searchText)
 
     const handleOnChange = (event)=>{
         const {value} = event.target;
@@ -123,13 +120,13 @@ export default function TextForm(props) {
 
     const highlight = (text, search) => {
       // Escape the search term to avoid errors
-      const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const escapedSearch = search?.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const regex = new RegExp(`(${escapedSearch})`, 'gi');
       const parts = text.split(regex);
       return (
         <>
           {parts.map((part, i) => 
-            part.toLowerCase() === search.toLowerCase() ? (
+            part?.toLowerCase() === search?.toLowerCase() ? (
               <span key={i} className="highlighted" style={{backgroundColor: 'Highlight'}}>{part}</span>
             ) : (
               part
@@ -166,7 +163,7 @@ export default function TextForm(props) {
         {/* <button type="button" disabled={text.length === 0} onClick={reset2} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal2">Find</button> */}
 
         {/* --------------------------------------------------------- */}
-        <Replace theme={props.theme} mode={props.mode} inputText={inputText} setInputText={setInputText} inputReplace={inputReplace} setInputReplace={setInputReplace} handleReplace={handleReplace}/>
+        <ReplaceX theme={props.theme} mode={props.mode} inputText={inputText} setInputText={setInputText} inputReplace={inputReplace} setInputReplace={setInputReplace} handleReplace={handleReplace}/>
         {/* <Find theme={props.theme} mode={props.mode} /> */}
     </div>
     <div className='container my-3' style={{color: props.mode=== 'dark'?'white': 'black'}}>
@@ -174,7 +171,7 @@ export default function TextForm(props) {
         <p>{text.split(/\s+/).filter((element)=>{return element.length !== 0}).length} words and {text.length} characters</p>
         <p>{0.008* text.split(" ").filter((element)=>{return element.length !== 0}).length} Minutes read</p>
         <h2>Preview</h2>
-        <p>{<Preview text={text} search={searchText}/>?<Preview text={text} search={searchText}/>:text?text:"Nothing to preview."}</p>
+        <div>{<Preview text={text} search={searchText}/>?<Preview text={text} search={searchText}/>:text?text:"Nothing to preview."}</div>
     </div>
     </>
   )

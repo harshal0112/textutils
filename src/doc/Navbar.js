@@ -12,6 +12,11 @@ function Navbar(props) {
     
   }, [setSearchText, search])
 
+const reset3 = ()=> {
+    document.getElementById('reset3').value = '';
+    setSearch('')
+}
+
     return(
         <>
 <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
@@ -34,8 +39,8 @@ function Navbar(props) {
       </ul>
       <Themes toggleMode={props.toggleMode} theme={props.theme} toggleTheme={props.toggleTheme} mode={props.mode} />
       <form className="d-flex mt-sm-2 mt-lg-0" role="search">
-        <input className={`form-control me-2 border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} value={search} onChange={e => setSearch(e.target.value)} type="search" placeholder="Search" aria-label="Search" />
-        <button className={`btn btn-${props.theme}`} type="submit">{search?'Reset': 'Search'}</button>
+        <input className={`form-control me-2 border-${props.theme}`} id='reset3' style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} value={search} onChange={e => setSearch(e.target.value)} type="search" placeholder="Search" aria-label="Search" />
+        <button className={`btn btn-${props.theme}`} onClick={reset3} type="button">{search?'Reset': 'Search'}</button>
       </form>
     </div>
   </div>

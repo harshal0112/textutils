@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 
-function Replace(props) {
+function ReplaceX(props) {
     const replaceInput = useRef(null);
 
     const handleReplaceInput = ()=> {
@@ -37,4 +37,4 @@ function Replace(props) {
   )
 }
 
-export default Replace
+export default ReplaceX
