@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 // import Find from './Find';
 import ReplaceX from './ReplaceX';
 import { useContext } from 'react';
@@ -144,6 +144,25 @@ export default function TextForm(props) {
       );
     };
 
+    const [buttonText, setButtonText] = useState('Listen');
+
+    useEffect(() => {
+      const synth = window.speechSynthesis;
+      synth.addEventListener('voiceschanged', () => {
+      //   setVoices(synth.getVoices());
+      });
+    }, []);
+
+    const speak = () => {
+      if (text) {
+        const synth = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(text);
+        synth.speak(utterance);
+        setButtonText('Stop');
+        utterance.onend = () => setButtonText('Listen');
+      }
+    };
+
   return (
     <>
     <div className='container' style={{color: props.mode=== 'dark'?'white': 'black'}}>
@@ -160,6 +179,7 @@ export default function TextForm(props) {
         <button disabled={undoStack.current.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleUndo}>Undo</button>
         <button disabled={redoStack.current.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleRedo}>Redo</button>
         <button type="button" disabled={text.length === 0} onClick={reset} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal">Replace</button>
+        <button type="button" disabled={text.length === 0} onClick={speak} className={`btn btn-${props.theme} mx-1 my-1`}>{buttonText}</button>
         {/* <button type="button" disabled={text.length === 0} onClick={reset2} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal2">Find</button> */}
 
         {/* --------------------------------------------------------- */}
