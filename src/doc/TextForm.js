@@ -8,6 +8,7 @@ export default function TextForm(props) {
     const [text, setText] = useState('');
     const undoStack = useRef([]);
     const redoStack = useRef([]);
+    const textRef = useRef(null);
 
     const {searchText} = useContext(MyContext);
 // -----------------------------------------------------
@@ -31,10 +32,10 @@ export default function TextForm(props) {
       }
       if (isListening) {
         mic.start();
-        console.log('start');
+        // console.log('start');
       } else {
         mic.stop();
-        console.log('stopped');
+        // console.log('stopped');
       }
       mic.onresult = (event) => {
         const transcript = Array.from(event.results)
@@ -219,18 +220,27 @@ export default function TextForm(props) {
     //   props.showAlert("Voice typing feature is in development.", "Coming Soon !");
     // }
 
+    const handleDownload = () => {
+      const element = document.createElement("a");
+      const file = new Blob([text], {type: 'text/plain'});
+      element.href = URL.createObjectURL(file);
+      element.download = "text.txt";
+      document.body.appendChild(element); // Required for this to work in FireFox
+      element.click();
+    };
+
   return (
     <>
     <div className='container' style={{color: props.mode=== 'dark'?'white': 'black'}}>
-        <form className='d-flex'>
+        <form className='d-flex justify-content-between'>
         <h1>{props.heading}</h1>
-        <button type='button' style={{borderRadius: '50%'}} id='mic' onClick={handleToggleListen} data-bs-toggle="tooltip" data-bs-placement="auto" title="Voice Typing" className={`btn btn-${props.theme} ${isListening?'mic-icon': ''} mx-3 my-auto`}><i className="bi bi-mic"></i></button>
+        <button type='button' style={{borderRadius: '50%'}} id='mic' onClick={handleToggleListen} data-bs-toggle="tooltip" data-bs-placement="auto" title="Voice Typing" className={`btn btn-${props.theme} ${isListening?'mic-icon': ''} mx-1 my-auto`}><i className="bi bi-mic"></i></button>
         </form>
         <div className="mb-3">
-        <textarea className={`form-control border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+        <textarea className={`form-control border-${props.theme}`} ref={textRef} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
         </div>
-        <button disabled={text === text.toUpperCase()} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleUpClick}>Convert to UpperCase</button>
-        <button disabled={text === text.toLowerCase()} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleLoClick}>Convert to LowerCase</button>
+        <button disabled={text === text.toUpperCase()} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleUpClick}>To UpperCase</button>
+        <button disabled={text === text.toLowerCase()} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleLoClick}>To LowerCase</button>
         <button disabled={text.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleClearClick}>Clear Text</button>
         <button disabled={text.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleCopy}>Copy Text</button>
         <button className={`btn btn-${props.theme} mx-1 my-1`} onClick={handlePaste}>Paste from clipboard</button>
@@ -240,6 +250,7 @@ export default function TextForm(props) {
         <button type="button" disabled={text.length === 0} onClick={reset} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal">Replace</button>
         <button type="button" disabled={text.length === 0} onClick={speak} className={`btn btn-${props.theme} mx-1 my-1`}>{buttonText}</button>
         {/* <button type="button" disabled={text.length === 0} onClick={reset2} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal2">Find</button> */}
+        <button type='button' disabled={text.length === 0} className={`btn btn-${props.theme} mx-1 my-1`} onClick={handleDownload}>Download</button>
 
         {/* --------------------------------------------------------- */}
         <ReplaceX theme={props.theme} mode={props.mode} inputText={inputText} setInputText={setInputText} inputReplace={inputReplace} setInputReplace={setInputReplace} handleReplace={handleReplace}/>
