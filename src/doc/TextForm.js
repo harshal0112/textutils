@@ -10,7 +10,51 @@ export default function TextForm(props) {
     const redoStack = useRef([]);
 
     const {searchText} = useContext(MyContext);
+// -----------------------------------------------------
 
+    let mic;
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      mic = new SpeechRecognition();
+      mic.continuous = true;
+      mic.interimResults = true;
+      mic.lang = 'en-US';
+    }
+
+    const [isListening, setIsListening] = useState(false);
+
+    useEffect(() => {
+      handleListen();
+    }, [isListening]);
+
+    const handleListen = () => {
+      if (!mic) {
+        return;
+      }
+      if (isListening) {
+        mic.start();
+        console.log('start');
+      } else {
+        mic.stop();
+        console.log('stopped');
+      }
+      mic.onresult = (event) => {
+        const transcript = Array.from(event.results)
+          .map((result) => result[0])
+          .map((result) => result.transcript)
+          .join('');
+        setText(text + transcript);
+        mic.onerror = (event) => {
+          console.log(event.error);
+        };
+      };
+    };
+
+    const handleToggleListen = () => {
+      setIsListening(!isListening);
+    };
+// ------------------------------------------------------
     const handleOnChange = (event)=>{
         const {value} = event.target;
         undoStack.current.push(value);
@@ -163,16 +207,16 @@ export default function TextForm(props) {
       }
     };
 
-    const GiveAlert = ()=> {
-      props.showAlert("Voice typing feature is in development.", "Coming Soon !");
-    }
+    // const GiveAlert = ()=> {
+    //   props.showAlert("Voice typing feature is in development.", "Coming Soon !");
+    // }
 
   return (
     <>
     <div className='container' style={{color: props.mode=== 'dark'?'white': 'black'}}>
         <form className='d-flex'>
         <h1>{props.heading}</h1>
-        <button type='button' style={{borderRadius: '50%'}} id='mic' onClick={GiveAlert} data-bs-toggle="tooltip" data-bs-placement="auto" title="Voice Typing" className={`btn btn-${props.theme} mx-3 my-auto`}><i className="bi bi-mic"></i></button>
+        <button type='button' style={{borderRadius: '50%'}} id='mic' onClick={handleToggleListen} data-bs-toggle="tooltip" data-bs-placement="auto" title="Voice Typing" className={`btn btn-${props.theme} mx-3 my-auto`}><i className="bi bi-mic"></i></button>
         </form>
         <div className="mb-3">
         <textarea className={`form-control border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
