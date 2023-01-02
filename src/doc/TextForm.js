@@ -41,17 +41,16 @@ export default function TextForm(props) {
           .map((result) => result[0])
           .map((result) => result.transcript)
           .join('');
-        setText(t => t + transcript);
+        setText(text + transcript);
         mic.onerror = (event) => {
           console.log(event.error);
         };
       };
-    }, [isListening, mic]);
-    
+    }, [isListening]);
+
     useEffect(() => {
       handleListen();
     }, [handleListen]);
-    
 
     const handleToggleListen = () => {
       setIsListening(!isListening);
@@ -189,23 +188,30 @@ export default function TextForm(props) {
         </div>
       );
     };
+    const [synth, setSynth] = useState(null);
 
     const [buttonText, setButtonText] = useState('Listen');
 
     useEffect(() => {
       const synth = window.speechSynthesis;
       synth.addEventListener('voiceschanged', () => {
+        setSynth(synth)
       //   setVoices(synth.getVoices());
       });
     }, []);
 
     const speak = () => {
-      if (text) {
-        const synth = window.speechSynthesis;
-        const utterance = new SpeechSynthesisUtterance(text);
-        synth.speak(utterance);
-        setButtonText('Stop');
-        utterance.onend = () => setButtonText('Listen');
+      if (buttonText === 'Listen') {
+        if (text) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          synth.speak(utterance);
+          setButtonText('Stop');
+          utterance.onend = () => setButtonText('Listen');
+        }
+      }
+      else {
+        synth.cancel();
+        setButtonText('Listen');
       }
     };
 
@@ -218,7 +224,7 @@ export default function TextForm(props) {
     <div className='container' style={{color: props.mode=== 'dark'?'white': 'black'}}>
         <form className='d-flex'>
         <h1>{props.heading}</h1>
-        <button type='button' style={{borderRadius: '50%'}} id='mic' onClick={handleToggleListen} data-bs-toggle="tooltip" data-bs-placement="auto" title="Voice Typing" className={`btn btn-${props.theme} mx-3 my-auto`}><i className="bi bi-mic"></i></button>
+        <button type='button' style={{borderRadius: '50%'}} id='mic' onClick={handleToggleListen} data-bs-toggle="tooltip" data-bs-placement="auto" title="Voice Typing" className={`btn btn-${props.theme} ${isListening?'mic-icon': ''} mx-3 my-auto`}><i className="bi bi-mic"></i></button>
         </form>
         <div className="mb-3">
         <textarea className={`form-control border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
