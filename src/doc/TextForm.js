@@ -163,10 +163,17 @@ export default function TextForm(props) {
       }
     };
 
+    const GiveAlert = ()=> {
+      props.showAlert("Voice typing feature is in development.", "Coming Soon !");
+    }
+
   return (
     <>
     <div className='container' style={{color: props.mode=== 'dark'?'white': 'black'}}>
+        <form className='d-flex'>
         <h1>{props.heading}</h1>
+        <button type='button' style={{borderRadius: '50%'}} id='mic' onClick={GiveAlert} data-bs-toggle="tooltip" data-bs-placement="auto" title="Voice Typing" className={`btn btn-${props.theme} mx-3 my-auto`}><i className="bi bi-mic"></i></button>
+        </form>
         <div className="mb-3">
         <textarea className={`form-control border-${props.theme}`} style={{backgroundColor: props.mode=== 'dark'?'#212529': 'white', color: props.mode === 'dark'?'white':'black'}} value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
         </div>

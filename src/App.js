@@ -78,8 +78,8 @@ function App() {
       <Alert  alert={alert} theme={theme}/>
       <div className='container my-3'>
           <Routes>
-            <Route path="/about2" element={<About mode={mode} theme={theme}/>} />
-            <Route path="/about" element={<FAQ mode={mode} theme={theme}/>} />
+            <Route exact path="/About" element={<About mode={mode} theme={theme}/>} />
+            <Route exact path="/FAQ" element={<FAQ mode={mode} theme={theme}/>} />
             <Route path="/" element={<TextForm showAlert={showAlert} heading="Enter your text to Analyze." mode={mode} theme={theme}/>}/>
           </Routes>
         {/* <About mode={mode} theme={theme}/> */}
