@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect, useCallback} from 'react'
 // import Find from './Find';
 import ReplaceX from './ReplaceX';
 import { useContext } from 'react';
@@ -24,11 +24,8 @@ export default function TextForm(props) {
 
     const [isListening, setIsListening] = useState(false);
 
-    useEffect(() => {
-      handleListen();
-    }, [isListening]);
-
-    const handleListen = () => {
+    
+    const handleListen = useCallback(() => {
       if (!mic) {
         return;
       }
@@ -44,12 +41,17 @@ export default function TextForm(props) {
           .map((result) => result[0])
           .map((result) => result.transcript)
           .join('');
-        setText(text + transcript);
+        setText(t => t + transcript);
         mic.onerror = (event) => {
           console.log(event.error);
         };
       };
-    };
+    }, [isListening, mic]);
+    
+    useEffect(() => {
+      handleListen();
+    }, [handleListen]);
+    
 
     const handleToggleListen = () => {
       setIsListening(!isListening);
