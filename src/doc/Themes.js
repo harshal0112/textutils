@@ -8,21 +8,17 @@ export default function Themes(props) {
         <input className="form-check-input" onChange={props.toggleMode} type="checkbox" role="switch" name='flexDefault' id="btn-check-outlined" value="option1" defaultChecked={props.mode === 'dark'}/>
         <label className={`form-check-label text-${props.mode === 'dark'?'light':'dark'}`} htmlFor="btn-check-outlined">{props.mode === 'light'?'Dark':''}</label>
     </div>
-    <div className="form-check form-check-inline ml-0 mb-sm-2 mb-md-2 mb-lg-0 mx-0">
-        <input className="btn-check" value="primary" onClick={(e) => props.toggleTheme(e.target.value)} type="radio" name='flexDefault' id="btn-check-outlined1" autoComplete='off' defaultChecked={props.theme === 'primary'}/>
-        <label className="btn btn-outline-primary" htmlFor="btn-check-outlined1"></label>
-    </div>
-    <div className="form-check form-check-inline mx-0">
-        <input className="btn-check" value="success" onClick={(e) => props.toggleTheme(e.target.value)} type="radio" name='flexDefault' id="btn-check-outlined2" autoComplete='off' defaultChecked={props.theme === 'success'}/>
-        <label className="btn btn-outline-success" htmlFor="btn-check-outlined2"></label>
-    </div>
-    <div className="form-check form-check-inline mx-0">
-        <input className="btn-check" value="warning" onClick={(e) => props.toggleTheme(e.target.value)} type="radio" name='flexDefault' id="btn-check-outlined4" autoComplete='off' defaultChecked={props.theme === 'warning'}/>
-        <label className="btn btn-outline-warning" htmlFor="btn-check-outlined4"></label>
-    </div>
-    <div className="form-check form-check-inline mr-2">
-        <input className="btn-check" value="danger" onClick={(e) => props.toggleTheme(e.target.value)} type="radio" name='flexDefault' id="btn-check-outlined5" autoComplete='off' defaultChecked={props.theme === 'danger'}/>
-        <label className="btn btn-outline-danger" htmlFor="btn-check-outlined5"></label>
+    <div className="dropdown mx-sm-0 mx-lg-3 form-check-inline" data-bs-theme={props.mode}>
+        <button class={`btn btn-sm btn-${props.mode} dropdown-toggle text-${props.mode === 'dark'?'light':'dark'}`} type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+            Theme
+        </button>
+
+        <ul className="dropdown-menu">
+            <li><a className="dropdown-item drop-primary" onClick={(e) => props.toggleTheme("primary")}>Default (Blue)</a></li>
+            <li><a className="dropdown-item drop-success" onClick={(e) => props.toggleTheme("success")}>Green</a></li>
+            <li><a className="dropdown-item drop-warning" onClick={(e) => props.toggleTheme("warning")}>Yellow</a></li>
+            <li><a className="dropdown-item drop-danger" onClick={(e) => props.toggleTheme("danger")}>Red</a></li>
+        </ul>
     </div>
     </>
   )

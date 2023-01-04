@@ -11,6 +11,7 @@ import {
   Routes
 } from "react-router-dom";
 import MyContextProvider from './doc/MyContextProvider';
+import Footer from './doc/Footer';
 
 function App() {
 
@@ -76,7 +77,7 @@ function App() {
    <Router>
     <Navbar title="TextUtils" theme={theme} mode={mode} toggleMode={toggleMode} toggleTheme={toggleTheme}/>
       <Alert  alert={alert} theme={theme}/>
-      <div className='container my-3'>
+      <div className={`container my-3 pt-3 pb-5 shadow rounded`} data-bs-theme={mode}>
           <Routes>
             <Route exact path="/About" element={<About mode={mode} theme={theme}/>} />
             <Route exact path="/FAQ" element={<FAQ mode={mode} theme={theme}/>} />
@@ -85,6 +86,7 @@ function App() {
         {/* <About mode={mode} theme={theme}/> */}
         {/* <TextForm showAlert={showAlert} heading="Enter your text to Analyze." mode={mode} theme={theme}/> */}
       </div>
+      <Footer theme={theme} mode={mode}/>
    </Router>
    </MyContextProvider>
    </>
