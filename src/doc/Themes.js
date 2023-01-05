@@ -17,11 +17,11 @@ export default function Themes(props) {
         </button>
 
         <ul className="dropdown-menu shadow">
-            <li><a className="dropdown-item drop-primary" onClick={(e) => props.toggleTheme("primary")}>Default (Blue)</a></li>
+            <li><a className="dropdown-item drop-purple" onClick={(e) => props.toggleTheme("purple")}>Default (Purple)</a></li>
+            <li><a className="dropdown-item drop-primary" onClick={(e) => props.toggleTheme("primary")}>Blue</a></li>
             <li><a className="dropdown-item drop-success" onClick={(e) => props.toggleTheme("success")}>Green</a></li>
             <li><a className="dropdown-item drop-warning" onClick={(e) => props.toggleTheme("warning")}>Yellow</a></li>
             <li><a className="dropdown-item drop-danger" onClick={(e) => props.toggleTheme("danger")}>Red</a></li>
-            <li><a className="dropdown-item drop-purple" onClick={(e) => props.toggleTheme("purple")}>Purple</a></li>
             <li><a className="dropdown-item drop-cyan" onClick={(e) => props.toggleTheme("info")}>Cyan</a></li>
         </ul>
     </div>

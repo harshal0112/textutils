@@ -20,7 +20,7 @@ function App() {
   }
 
   const getTheme = ()=> {
-    return JSON.parse(localStorage.getItem('theme')) || 'primary'
+    return JSON.parse(localStorage.getItem('theme')) || 'purple'
   }
 
   const [mode, setMode] = useState(getMode());

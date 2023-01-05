@@ -21,9 +21,39 @@ $theme-colors: (
     "info":          $info,
     "warning":       $warning,
     "danger":        $danger,
-    "purple" : #7431f9,
-);
+    "purple" :      #7431f9,
+);  
 
+.alert-purple {
+    --bs-alert-color: #6610f2 !important;
+    --bs-alert-bg: #e0cffc !important;
+    --bs-alert-border-color: #c29ffa !important;
+    --bs-alert-link-color: #6610f2 !important;
+}
+
+.drop-primary:hover, .drop-primary:hover {
+    background-color: #0d6efd !important;
+    }
+  
+.drop-success:active, .drop-success:hover {
+    background-color: #198754 !important;
+    }
+  
+.drop-warning:active, .drop-warning:hover {
+    background-color: #ffc107 !important;
+    }
+
+.drop-danger:active, .drop-danger:hover {
+    background-color: #dc3545 !important;
+    }
+
+.drop-purple:active, .drop-purple:hover {
+    background-color: #7431f9 !important;
+    }
+
+.drop-cyan:active, .drop-cyan:hover {
+    background-color: $cyan !important;
+    }
 // -------------------------------------------------------------------------------------------------------
 // Switch to Dark Mode
 
