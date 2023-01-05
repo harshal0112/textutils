@@ -5,7 +5,7 @@ export default function Themes(props) {
     <>
     <div className={`form-check-inline ${props.mode === 'dark'?'dark': 'light'}`} data-bs-theme={props.mode}>
       <input type="checkbox" onChange={props.toggleMode} id="toggle" />
-      <label className="toggle shadow-sm" for="toggle">
+      <label className="toggle shadow-sm" htmlFor="toggle">
           <i className={`bi bi-${props.mode === 'dark'?'sun':'sun-fill'}`}></i>
           <i className={`bi bi-${props.mode === 'dark'?'moon-fill':'moon'}`}></i>
           <span className="ball"></span>
