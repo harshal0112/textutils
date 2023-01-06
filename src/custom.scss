@@ -24,6 +24,22 @@ $theme-colors: (
     "purple" :      #7431f9,
 );  
 
+.mic-icon {
+    animation: pulse 1.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
 .alert-purple {
     --bs-alert-color: #6610f2 !important;
     --bs-alert-bg: #e0cffc !important;
@@ -54,6 +70,25 @@ $theme-colors: (
 .drop-cyan:active, .drop-cyan:hover {
     background-color: $cyan !important;
     }
+
+html {
+    height: 100% !important;
+}
+
+body {
+    height: 100% !important;
+}
+
+#root {
+    display: flex !important;
+    flex-direction: column;
+    min-height: 100% !important;
+}
+
+.footer {
+    margin-top: auto !important;
+}
+
 // -------------------------------------------------------------------------------------------------------
 // Switch to Dark Mode
 
@@ -121,7 +156,7 @@ $theme-colors: (
 
 
 .dark .toggle {
-    background: linear-gradient(145deg, #0c0101, rgb(0, 0, 0));
+    background: linear-gradient(145deg, #202020, #011010);
     // box-shadow: 3px 3px 3px #0e131b,
     //             -3px -3px 3px #1c2739;
 }
@@ -141,25 +176,6 @@ $theme-colors: (
 // -----------------------------------------------------------------------------------------------------------
 
 
-@import "~bootstrap/scss/bootstrap";
-
-@import "~bootstrap/scss/functions";
-
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/variables-dark";
-
-@import "~bootstrap/scss/maps";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/root";
-
-@import "~bootstrap/scss/utilities";
-@import "~bootstrap/scss/reboot";
-@import "~bootstrap/scss/type";
-@import "~bootstrap/scss/images";
-@import "~bootstrap/scss/containers";
-@import "~bootstrap/scss/grid";
-@import "~bootstrap/scss/helpers";
-
-@import "~bootstrap/scss/utilities/api";
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 // 8. Add additional custom code here
