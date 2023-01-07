@@ -119,6 +119,16 @@ body {
     display: none !important;
   }
 
+  .input-hide {
+    position: absolute;
+    left: -10000px;
+  }
+  
+  .input-show {
+    position: relative;
+    left: 0;
+  }
+
 // -------------------------------------------------------------------------------------------------------
 // Switch to Dark Mode
 

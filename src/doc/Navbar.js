@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Themes from "./Themes";
 import { NavLink, Link } from "react-router-dom";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { MyContext } from "./MyContextProvider";
 
 function Navbar(props) {
@@ -18,9 +18,13 @@ function Navbar(props) {
   };
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const inputRef = useRef(null);
 
-  function handleExpand() {
+  function handleExpand(event) {
+    event.stopPropagation();
     setIsExpanded(!isExpanded);
+    inputRef.current.focus();
+    inputRef.current.select();
     if (window.innerWidth < 460) {
       setScreenWidth("Small");
     }
@@ -34,9 +38,9 @@ function Navbar(props) {
   }
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("click", handleClickOutside, true);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside, true);
     };
   });
 
@@ -78,7 +82,7 @@ function Navbar(props) {
               </div>
               <form
                 className={`d-flex align-items-center mt-lg-0 ${
-                  isExpanded ? "" : "d-none"
+                  isExpanded ? "input-show" : "input-hide"
                 }`}
                 role="search"
                 onSubmit={handleSubmit}
@@ -87,6 +91,7 @@ function Navbar(props) {
                 <input
                   className={`form-control search-bar-sm me-2 border-${props.theme}`}
                   id="reset3"
+                  ref={inputRef}
                   style={{
                     backgroundColor:
                       props.mode === "dark" ? "#111111" : "white",
