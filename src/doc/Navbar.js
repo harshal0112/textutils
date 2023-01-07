@@ -40,6 +40,10 @@ function Navbar(props) {
     };
   });
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <nav
@@ -77,6 +81,7 @@ function Navbar(props) {
                   isExpanded ? "" : "d-none"
                 }`}
                 role="search"
+                onSubmit={handleSubmit}
                 data-bs-theme={props.mode}
               >
                 <input
@@ -181,6 +186,7 @@ function Navbar(props) {
             <form
               className="d-flex align-items-center mt-sm-2 mt-lg-0"
               role="search"
+              onSubmit={handleSubmit}
               data-bs-theme={props.mode}
             >
               <input
