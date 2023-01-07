@@ -7,6 +7,7 @@ import { MyContext } from "./MyContextProvider";
 function Navbar(props) {
   const [search, setSearch] = useState("");
   const { setSearchText } = useContext(MyContext);
+  const [screenWidth, setScreenWidth] = useState("Large");
   useEffect(() => {
     setSearchText(search);
   }, [setSearchText, search]);
@@ -20,11 +21,15 @@ function Navbar(props) {
 
   function handleExpand() {
     setIsExpanded(!isExpanded);
+    if (window.innerWidth < 460) {
+      setScreenWidth("Small");
+    }
   }
 
   function handleClickOutside(event) {
     if (!event.target.closest(".search-container")) {
       setIsExpanded(false);
+      setScreenWidth("Large");
     }
   }
 
@@ -40,14 +45,23 @@ function Navbar(props) {
       <nav
         className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
       >
-        <div className="container-fluid d-flex justify-content-between">
-          <Link className={`navbar-brand text-${props.theme}`} to="/">
+        <div
+          className={`container-fluid d-flex justify-content-${
+            screenWidth === "Large" ? "between" : "center"
+          }`}
+        >
+          <Link
+            className={`navbar-brand text-${props.theme} ${
+              screenWidth === "Large" ? "" : "d-none"
+            }`}
+            to="/"
+          >
             {props.title}
           </Link>
           <div className="d-flex align-items-center d-lg-none">
             <div className="search-container d-flex align-items-center">
               <div
-                className={`border-0 search-icon mx-3 ${
+                className={`border-0 search-icon me-3 ms-0 ${
                   isExpanded ? "hide-icon" : ""
                 }`}
                 onClick={handleExpand}
@@ -66,7 +80,7 @@ function Navbar(props) {
                 data-bs-theme={props.mode}
               >
                 <input
-                  className={`form-control me-2 border-${props.theme}`}
+                  className={`form-control search-bar-sm me-2 border-${props.theme}`}
                   id="reset3"
                   style={{
                     backgroundColor:
@@ -84,7 +98,7 @@ function Navbar(props) {
             <div
               className={`form-check-inline d-sm-block d-lg-none ${
                 props.mode === "dark" ? "dark" : "light"
-              }`}
+              } ${screenWidth === "Large" ? "" : "d-none"}`}
               data-bs-theme={props.mode}
             >
               <input type="checkbox" onChange={props.toggleMode} id="toggle" />
@@ -103,7 +117,9 @@ function Navbar(props) {
               </label>
             </div>
             <button
-              className="navbar-toggler"
+              className={`navbar-toggler ${
+                screenWidth === "Large" ? "" : "d-none"
+              }`}
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent"
