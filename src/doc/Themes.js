@@ -4,28 +4,11 @@ export default function Themes(props) {
   return (
     <>
       <div
-        className={`form-check-inline ${
-          props.mode === "dark" ? "dark" : "light"
-        }`}
-        data-bs-theme={props.mode}
-      >
-        <input type="checkbox" onChange={props.toggleMode} id="toggle" />
-        <label className="toggle shadow-sm" htmlFor="toggle">
-          <i
-            className={`bi bi-${props.mode === "dark" ? "sun" : "sun-fill"}`}
-          ></i>
-          <i
-            className={`bi bi-${props.mode === "dark" ? "moon-fill" : "moon"}`}
-          ></i>
-          <span className={`ball bg-${props.theme}`}></span>
-        </label>
-      </div>
-      <div
         className="dropdown mr-sm-3 mr-lg-3 form-check-inline"
         data-bs-theme={props.mode}
       >
-        <button
-          className={`btn btn-sm btn-${props.mode} dropdown-toggle text-${
+        <div
+          className={`theme-menu dropdown-toggle text-${
             props.mode === "dark" ? "light" : "dark"
           }`}
           type="button"
@@ -34,7 +17,7 @@ export default function Themes(props) {
           aria-expanded="false"
         >
           Theme
-        </button>
+        </div>
 
         <ul className="dropdown-menu shadow">
           <li>

@@ -89,6 +89,36 @@ body {
     margin-top: auto !important;
 }
 
+@media (max-width: 575.98px) {
+    .d-sm-none {
+        display: none !important;
+    }
+
+    .theme-menu {
+        margin-bottom: 8px;
+    }
+}
+
+.search-container {
+    display: flex;
+  }
+  .search-icon {
+    cursor: pointer;
+  }
+  .search-bar {
+    display: none;
+    width: 60%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  .show {
+    display: block !important;
+  }
+  .hide-icon {
+    display: none !important;
+  }
+
 // -------------------------------------------------------------------------------------------------------
 // Switch to Dark Mode
 
