@@ -11,7 +11,18 @@ import Footer from "./doc/Footer";
 
 function App() {
   const getMode = () => {
-    return JSON.parse(localStorage.getItem("mode")) || "light";
+    if (localStorage.getItem("mode") !== null || undefined) {
+      return JSON.parse(localStorage.getItem("mode"));
+    } else {
+      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (darkThemeMq.matches) {
+        // Theme set to dark.
+        return "dark";
+      } else {
+        // Theme set to light.
+        return "light";
+      }
+    }
   };
 
   const getTheme = () => {

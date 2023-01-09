@@ -182,12 +182,14 @@ function Navbar(props) {
                 <span className={`ball bg-${props.theme}`}></span>
               </label>
             </div>
-            <Themes
-              toggleMode={props.toggleMode}
-              theme={props.theme}
-              toggleTheme={props.toggleTheme}
-              mode={props.mode}
-            />
+            <div className="btn p-0 m-0 border-0">
+              <Themes
+                toggleMode={props.toggleMode}
+                theme={props.theme}
+                toggleTheme={props.toggleTheme}
+                mode={props.mode}
+              />
+            </div>
             <form
               className="d-flex align-items-center mt-sm-2 mt-lg-0"
               role="search"
