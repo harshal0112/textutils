@@ -40,6 +40,22 @@ $theme-colors: (
     }
 }
 
+.heart-icon {
+    animation: beat .5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes beat {
+    0% {
+        transform: scale(1) !important;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .alert-purple {
     --bs-alert-color: #6610f2 !important;
     --bs-alert-bg: #e0cffc !important;
@@ -99,6 +115,10 @@ body {
     }
 }
 
+@media (max-width: 991.98px) {
+    
+}
+
 .search-container {
     display: flex;
   }
@@ -127,6 +147,10 @@ body {
   .input-show {
     position: relative;
     left: 0;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
   }
 
 // -------------------------------------------------------------------------------------------------------

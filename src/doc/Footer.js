@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Footer(props) {
+  const [heart, setHeart] = useState("");
+  const heartToggle = () => {
+    if (heart === "") {
+      console.log("ggg");
+      setHeart("beating");
+    } else {
+      console.log("nnn");
+      setHeart("");
+    }
+  };
   return (
     <>
       <footer
         className={`footer d-flex flex-wrap justify-content-between align-items-center py-3 bg-${props.mode}`}
       >
         <div className="container d-flex flex-wrap justify-content-between align-items-center">
-          <div className="col-md-4 d-flex align-items-center">
-            <a
-              href="/"
-              className="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
+          <div
+            className={`col-md-4 d-flex align-items-center text-${
+              props.mode === "dark" ? "light" : "muted"
+            }`}
+          >
+            <div
+              className={`mb-3 me-2 mb-md-0 text-decoration-none lh-1 cursor-pointer ${
+                heart === "beating" ? "heart-icon text-danger" : ""
+              }`}
+              onClick={heartToggle}
             >
               <i className="bi bi-heart-fill" width="30" height="24"></i>
-            </a>
+            </div>
             <span
               className={`mb-3 mb-md-0 text-${
                 props.mode === "dark" ? "light" : "muted"

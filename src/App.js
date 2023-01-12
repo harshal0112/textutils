@@ -8,8 +8,10 @@ import About from "./doc/About";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MyContextProvider from "./doc/MyContextProvider";
 import Footer from "./doc/Footer";
+import ToastNotification from "./doc/Toast";
 
 function App() {
+  const [toast, setToast] = useState(false);
   const getMode = () => {
     if (localStorage.getItem("mode") !== null || undefined) {
       return JSON.parse(localStorage.getItem("mode"));
@@ -17,9 +19,11 @@ function App() {
       const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
       if (darkThemeMq.matches) {
         // Theme set to dark.
+        setToast(true);
         return "dark";
       } else {
         // Theme set to light.
+        setToast(false);
         return "light";
       }
     }
@@ -116,7 +120,8 @@ function App() {
             {/* <About mode={mode} theme={theme}/> */}
             {/* <TextForm showAlert={showAlert} heading="Enter your text to Analyze." mode={mode} theme={theme}/> */}
           </div>
-          <Footer theme={theme} mode={mode} />
+          <ToastNotification mode={mode} theme={theme} />
+          <Footer theme={theme} mode={mode} toast={toast} />
         </Router>
       </MyContextProvider>
     </>

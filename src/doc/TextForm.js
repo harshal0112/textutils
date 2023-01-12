@@ -155,14 +155,14 @@ export default function TextForm(props) {
     if (text.indexOf(inputText) === -1) {
       props.showAlert(`"${inputText}" Not Found in TextBox.`, "error");
     } else {
-      const newText = text.replace(new RegExp(inputText, "g"), inputReplace);
+      const newText = text.replace(new RegExp(inputText, "gi"), inputReplace);
       setText(newText);
     }
   };
 
   const highlight = (text, search) => {
     // Escape the search term to avoid errors
-    const escapedSearch = search?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const escapedSearch = search?.replace(/[.*+?^${}()|[\]\\]/gi, "\\$&");
     const regex = new RegExp(`(${escapedSearch})`, "gi");
     const parts = text.split(regex);
     return (
@@ -250,7 +250,9 @@ export default function TextForm(props) {
     <>
       <div
         className="container"
-        style={{ color: props.mode === "dark" ? "white" : "black" }}
+        style={{
+          color: props.mode === "dark" ? "white" : "black",
+        }}
       >
         <form className="d-flex justify-content-between">
           <h1>{props.heading}</h1>
@@ -278,7 +280,7 @@ export default function TextForm(props) {
             className={`form-control border-${props.theme}`}
             ref={textRef}
             style={{
-              backgroundColor: props.mode === "dark" ? "#212529" : "white",
+              backgroundColor: props.mode === "dark" ? "#202023" : "white",
               color: props.mode === "dark" ? "white" : "black",
             }}
             value={text}
