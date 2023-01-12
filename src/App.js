@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./doc/Navbar";
 import TextForm from "./doc/TextForm";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Alert from "./doc/Alert";
 import FAQ from "./doc/FAQ";
 import About from "./doc/About";
@@ -10,28 +10,51 @@ import MyContextProvider from "./doc/MyContextProvider";
 import Footer from "./doc/Footer";
 
 function App() {
-  const getMode = () => {
+  const [toast, setToast] = useState(null);
+
+  const showToast = (type, message) => {
+    setToast({
+      type: type,
+      msg: message,
+    });
+
+    setTimeout(() => {
+      setToast(null);
+    }, 5000);
+  };
+
+  const stateMode = useMemo(() => {
     if (localStorage.getItem("mode") !== null || undefined) {
       return JSON.parse(localStorage.getItem("mode"));
     } else {
       const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
       if (darkThemeMq.matches) {
         // Theme set to dark.
+        showToast(
+          "Dark Mode",
+          "Dark mode has been enabled, accordance to device's system theme settings."
+        );
         return "dark";
       } else {
         // Theme set to light.
+        showToast(
+          "Light Mode",
+          "Light mode has been enabled, accordance to device's system theme settings."
+        );
         return "light";
       }
     }
-  };
+  }, []);
 
   const getTheme = () => {
     return JSON.parse(localStorage.getItem("theme")) || "purple";
   };
 
-  const [mode, setMode] = useState(getMode());
+  const stateTheme = getTheme();
+
+  const [mode, setMode] = useState(stateMode);
   const [alert, setAlert] = useState(null);
-  const [theme, setTheme] = useState(getTheme());
+  const [theme, setTheme] = useState(stateTheme);
 
   useEffect(() => {
     localStorage.setItem("mode", JSON.stringify(mode));
@@ -85,7 +108,7 @@ function App() {
             toggleMode={toggleMode}
             toggleTheme={toggleTheme}
           />
-          <Alert alert={alert} theme={theme} />
+          <Alert alert={alert} theme={theme} toast={toast} mode={mode} />
           <div
             className={`container my-3 mb-5 pt-3 pb-5 shadow rounded`}
             data-bs-theme={mode}
