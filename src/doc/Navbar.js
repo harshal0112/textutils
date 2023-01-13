@@ -8,6 +8,8 @@ function Navbar(props) {
   const [search, setSearch] = useState("");
   const { setSearchText } = useContext(MyContext);
   const [screenWidth, setScreenWidth] = useState("Large");
+  const { mainText } = useContext(MyContext);
+  const { textFoundCount } = useContext(MyContext);
   useEffect(() => {
     setSearchText(search);
   }, [setSearchText, search]);
@@ -89,7 +91,11 @@ function Navbar(props) {
                 data-bs-theme={props.mode}
               >
                 <input
-                  className={`form-control search-bar-sm me-2 border-${props.theme}`}
+                  className={`form-control search-bar-sm me-2 border-${
+                    props.theme
+                  } ${!mainText && search ? "is-invalid" : ""} ${
+                    mainText && search ? "is-valid" : ""
+                  }`}
                   id="reset3"
                   ref={inputRef}
                   style={{
@@ -103,6 +109,12 @@ function Navbar(props) {
                   placeholder="Search"
                   aria-label="Search"
                 />
+                <p className="invalid-tooltip mt-auto">
+                  <small className="">Search after entering text Below.</small>
+                </p>
+                <p className="valid-tooltip">
+                  <small className="">{textFoundCount / 2} Results Found</small>
+                </p>
               </form>
             </div>
             <div
@@ -197,7 +209,11 @@ function Navbar(props) {
               data-bs-theme={props.mode}
             >
               <input
-                className={`form-control d-sm-none d-lg-block me-2 border-${props.theme}`}
+                className={`form-control d-sm-none d-lg-block me-2 border-${
+                  props.theme
+                } ${!mainText && search ? "is-invalid" : ""} ${
+                  mainText && search ? "is-valid" : ""
+                }`}
                 id="reset3"
                 style={{
                   backgroundColor: props.mode === "dark" ? "#111111" : "white",
@@ -209,6 +225,12 @@ function Navbar(props) {
                 placeholder="Search"
                 aria-label="Search"
               />
+              <p className="invalid-tooltip mt-auto">
+                <small className="">Search after entering text Below.</small>
+              </p>
+              <p className="valid-tooltip">
+                <small className="">{textFoundCount / 2} Results Found</small>
+              </p>
               <button
                 className={`btn btn-${props.theme} d-sm-none d-lg-block`}
                 onClick={reset3}

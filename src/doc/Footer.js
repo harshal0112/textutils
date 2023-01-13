@@ -4,10 +4,8 @@ function Footer(props) {
   const [heart, setHeart] = useState("");
   const heartToggle = () => {
     if (heart === "") {
-      console.log("ggg");
       setHeart("beating");
     } else {
-      console.log("nnn");
       setHeart("");
     }
   };

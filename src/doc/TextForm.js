@@ -10,9 +10,20 @@ export default function TextForm(props) {
   const undoStack = useRef([]);
   const redoStack = useRef([]);
   const textRef = useRef(null);
-
+  const { setMainText } = useContext(MyContext);
+  const foundArray = [];
+  const [foundCount, setFoundCount] = useState(0);
+  const { setTextFoundCount } = useContext(MyContext);
   const { searchText } = useContext(MyContext);
   // -----------------------------------------------------
+
+  useEffect(() => {
+    setMainText(text);
+  }, [setMainText, text]);
+
+  useEffect(() => {
+    setTextFoundCount(foundCount);
+  }, [setTextFoundCount, foundCount]);
 
   let mic;
 
@@ -167,18 +178,22 @@ export default function TextForm(props) {
     const parts = text.split(regex);
     return (
       <>
-        {parts.map((part, i) =>
-          part?.toLowerCase() === search?.toLowerCase() ? (
-            <span
-              key={i}
-              className="highlighted"
-              style={{ backgroundColor: "Highlight" }}
-            >
-              {part}
-            </span>
-          ) : (
-            part
-          )
+        {parts.map(
+          (part, i) =>
+            part?.toLowerCase() === search?.toLowerCase()
+              ? (foundArray.push(part),
+                setFoundCount(foundArray.length),
+                (
+                  <span
+                    key={i}
+                    className="highlighted"
+                    style={{ backgroundColor: "Highlight" }}
+                  >
+                    {part}
+                  </span>
+                ))
+              : part,
+          setFoundCount(0)
         )}
       </>
     );
