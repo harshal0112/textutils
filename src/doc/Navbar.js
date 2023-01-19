@@ -113,7 +113,10 @@ function Navbar(props) {
                   <small className="">Search after entering text Below.</small>
                 </p>
                 <p className="valid-tooltip">
-                  <small className="">{textFoundCount} Results Found</small>
+                  <small className="">
+                    {textFoundCount}{" "}
+                    {textFoundCount === 1 ? "Match" : "Matches"} Found
+                  </small>
                 </p>
               </form>
             </div>
@@ -229,7 +232,10 @@ function Navbar(props) {
                 <small className="">Search after entering text Below.</small>
               </p>
               <p className="valid-tooltip">
-                <small className="">{textFoundCount} Results Found</small>
+                <small className="">
+                  {textFoundCount} {textFoundCount === 1 ? "Match" : "Matches"}{" "}
+                  Found
+                </small>
               </p>
               <button
                 className={`btn btn-${props.theme} d-sm-none d-lg-block`}

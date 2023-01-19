@@ -65,7 +65,7 @@ function ReplaceX(props) {
               />
             </form>
             <div className="modal-footer">
-              <small
+              <p
                 className="me-auto"
                 style={
                   props.mode === "dark"
@@ -73,8 +73,8 @@ function ReplaceX(props) {
                     : { color: "#595c5f" }
                 }
               >
-                Note: 'A' and 'a' is not Same.
-              </small>
+                <small>Note: 'A' and 'a' is not Same.</small>
+              </p>
               <button
                 type="button"
                 className="btn btn-secondary"

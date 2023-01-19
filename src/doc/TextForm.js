@@ -309,55 +309,83 @@ export default function TextForm(props) {
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleUpClick}
         >
-          To UpperCase
+          UpperCase{" "}
+          <img
+            src={require(".//images/buttons-icons/to-uppercase-icon.png")}
+            alt=""
+            className="mb-1"
+            style={{
+              width: "20px",
+              filter:
+                props.theme === "warning"
+                  ? " "
+                  : props.theme === "info"
+                  ? " "
+                  : "invert(100%) sepia(100%) saturate(2%) hue-rotate(256deg) brightness(103%) contrast(101%)",
+            }}
+          />
         </button>
         <button
           disabled={text === text.toLowerCase()}
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleLoClick}
         >
-          To LowerCase
+          LowerCase{" "}
+          <img
+            src={require(".//images/buttons-icons/to-lowercase-icon.png")}
+            alt=""
+            className="mb-1"
+            style={{
+              width: "20px",
+              filter:
+                props.theme === "warning"
+                  ? " "
+                  : props.theme === "info"
+                  ? " "
+                  : "invert(100%) sepia(100%) saturate(2%) hue-rotate(256deg) brightness(103%) contrast(101%)",
+            }}
+          />
         </button>
         <button
           disabled={text.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleClearClick}
         >
-          Clear Text
+          Clear <i className="bi bi-trash"></i>
         </button>
         <button
           disabled={text.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleCopy}
         >
-          Copy Text
+          Copy <i className="fa-regular fa-copy"></i>
         </button>
         <button
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handlePaste}
         >
-          Paste
+          Paste <i className="fa fa-regular fa-paste"></i>
         </button>
         <button
           disabled={text.match(/^.*\s{2,}.*$/) === null}
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleExtraSpaces}
         >
-          Remove Extra Spaces
+          Extra Spaces <i className="bi bi-distribute-vertical"></i>
         </button>
         <button
           disabled={undoStack.current.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleUndo}
         >
-          Undo
+          Undo <i className="bi bi-arrow-counterclockwise"></i>
         </button>
         <button
           disabled={redoStack.current.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleRedo}
         >
-          Redo
+          Redo <i className="bi bi-arrow-clockwise"></i>
         </button>
         <button
           type="button"
@@ -367,7 +395,7 @@ export default function TextForm(props) {
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         >
-          Replace
+          Replace <i className="bi bi-arrow-repeat"></i>
         </button>
         <button
           type="button"
@@ -375,7 +403,7 @@ export default function TextForm(props) {
           onClick={speak}
           className={`btn btn-${props.theme} mx-1 my-1`}
         >
-          {buttonText}
+          {buttonText} <i className="fa fa-volume-high"></i>
         </button>
         <button
           type="button"
@@ -383,7 +411,21 @@ export default function TextForm(props) {
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleEncodeClick}
         >
-          {isEncoded ? "Decode" : "Encode"}
+          {isEncoded ? "Decode" : "Encode"}{" "}
+          <img
+            src={require(".//images/buttons-icons/encode-decode.png")}
+            alt=""
+            className="mb-1"
+            style={{
+              width: "16px",
+              filter:
+                props.theme === "warning"
+                  ? " "
+                  : props.theme === "info"
+                  ? " "
+                  : "invert(100%) sepia(100%) saturate(2%) hue-rotate(256deg) brightness(103%) contrast(101%)",
+            }}
+          />
         </button>
         {/* <button type="button" disabled={text.length === 0} onClick={reset2} className={`btn btn-${props.theme} mx-1 my-1`} data-bs-toggle="modal" data-bs-target="#exampleModal2">Find</button> */}
         <button
@@ -392,7 +434,7 @@ export default function TextForm(props) {
           className={`btn btn-${props.theme} mx-1 my-1`}
           onClick={handleDownload}
         >
-          Download
+          Download <i className="bi bi-download"></i>
         </button>
 
         {/* --------------------------------------------------------- */}
