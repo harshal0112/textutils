@@ -121,7 +121,7 @@ function Navbar(props) {
                 </p>
               </form>
             </div>
-            <div
+            {/* <div
               className={`form-check-inline d-sm-block d-lg-none ${
                 props.mode === "dark" ? "dark" : "light"
               } ${screenWidth === "Large" ? "" : "d-none"}`}
@@ -141,7 +141,7 @@ function Navbar(props) {
                 ></i>
                 <span className={`ball bg-${props.theme}`}></span>
               </label>
-            </div>
+            </div> */}
             <button
               className={`navbar-toggler ${
                 screenWidth === "Large" ? "" : "d-none"
@@ -217,7 +217,6 @@ function Navbar(props) {
                     props.mode === "dark" ? "moon-stars-fill" : "sun-fill"
                   }`}
                 ></i>
-                <span className="d-lg-none ms-2">Toggle theme</span>
               </div>
 
               <ul
