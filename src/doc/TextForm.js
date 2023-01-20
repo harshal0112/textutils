@@ -307,6 +307,7 @@ export default function TextForm(props) {
         <button
           disabled={text === text.toUpperCase()}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Convert to Uppercase"
           onClick={handleUpClick}
         >
           UpperCase{" "}
@@ -328,6 +329,7 @@ export default function TextForm(props) {
         <button
           disabled={text === text.toLowerCase()}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Convert to Lowercase"
           onClick={handleLoClick}
         >
           LowerCase{" "}
@@ -349,6 +351,7 @@ export default function TextForm(props) {
         <button
           disabled={text.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Clear Text"
           onClick={handleClearClick}
         >
           Clear <i className="bi bi-trash"></i>
@@ -356,12 +359,14 @@ export default function TextForm(props) {
         <button
           disabled={text.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Copy Text"
           onClick={handleCopy}
         >
           Copy <i className="fa-regular fa-copy"></i>
         </button>
         <button
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Paste from clipboard"
           onClick={handlePaste}
         >
           Paste <i className="fa fa-regular fa-paste"></i>
@@ -369,6 +374,7 @@ export default function TextForm(props) {
         <button
           disabled={text.match(/^.*\s{2,}.*$/) === null}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Remove extra spaces"
           onClick={handleExtraSpaces}
         >
           Extra Spaces <i className="bi bi-distribute-vertical"></i>
@@ -376,6 +382,7 @@ export default function TextForm(props) {
         <button
           disabled={undoStack.current.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Undo"
           onClick={handleUndo}
         >
           Undo <i className="bi bi-arrow-counterclockwise"></i>
@@ -383,6 +390,7 @@ export default function TextForm(props) {
         <button
           disabled={redoStack.current.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Redo"
           onClick={handleRedo}
         >
           Redo <i className="bi bi-arrow-clockwise"></i>
@@ -392,6 +400,7 @@ export default function TextForm(props) {
           disabled={text.length === 0}
           onClick={reset}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Replace Text"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         >
@@ -402,6 +411,7 @@ export default function TextForm(props) {
           disabled={text.length === 0}
           onClick={speak}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Listen the Text"
         >
           {buttonText} <i className="fa fa-volume-high"></i>
         </button>
@@ -409,6 +419,7 @@ export default function TextForm(props) {
           type="button"
           disabled={text.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Encode and Decode"
           onClick={handleEncodeClick}
         >
           {isEncoded ? "Decode" : "Encode"}{" "}
@@ -432,6 +443,7 @@ export default function TextForm(props) {
           type="button"
           disabled={text.length === 0}
           className={`btn btn-${props.theme} mx-1 my-1`}
+          title="Download text file"
           onClick={handleDownload}
         >
           Download <i className="bi bi-download"></i>

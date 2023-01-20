@@ -3,6 +3,7 @@ import Themes from "./Themes";
 import { NavLink, Link } from "react-router-dom";
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { MyContext } from "./MyContextProvider";
+import { kMaxLength } from "buffer";
 
 function Navbar(props) {
   const [search, setSearch] = useState("");
@@ -176,7 +177,7 @@ function Navbar(props) {
                 </NavLink>
               </li>
             </ul>
-            <div
+            {/* <div
               className={`form-check-inline d-sm-none d-lg-block ${
                 props.mode === "dark" ? "dark" : "light"
               }`}
@@ -196,6 +197,90 @@ function Navbar(props) {
                 ></i>
                 <span className={`ball bg-${props.theme}`}></span>
               </label>
+            </div> */}
+            <div
+              className="dropdown mr-sm-3 mr-lg-3 form-check-inline"
+              data-bs-theme={props.mode}
+            >
+              <div
+                className={`dropdown-toggle drop-mode text-${
+                  props.mode === "dark" ? "light" : "dark"
+                }`}
+                id="toggleMode"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                data-bs-auto-close="true"
+              >
+                <i
+                  className={`bi bi-${
+                    props.mode === "dark" ? "moon-stars-fill" : "sun-fill"
+                  }`}
+                ></i>
+                <span className="d-lg-none ms-2">Toggle theme</span>
+              </div>
+
+              <ul
+                className="dropdown-menu shadow"
+                aria-labelledby="toggleMode"
+                style={{ minWidth: "120px" }}
+                id="dropShow"
+              >
+                <li className="d-flex justify-content-center">
+                  <button
+                    type="button"
+                    className={`dropdown-item d-flex align-items-center drop-mode-item ${
+                      props.modeActive === "light" ? "active" : ""
+                    }`}
+                    style={{ maxWidth: "94%", marginBottom: "1px" }}
+                    onClick={() => props.toggleMode("light")}
+                  >
+                    <small>
+                      <i
+                        className={`me-2 bi bi-sun-fill
+                  }`}
+                      ></i>{" "}
+                      Light
+                    </small>
+                  </button>
+                </li>
+                <li className="d-flex justify-content-center">
+                  <button
+                    type="button"
+                    className={`dropdown-item d-flex align-items-center drop-mode-item ${
+                      props.modeActive === "dark" ? "active" : ""
+                    }`}
+                    style={{ maxWidth: "94%", marginBottom: "1px" }}
+                    onClick={() => props.toggleMode("dark")}
+                  >
+                    <small>
+                      <i
+                        className={`me-2 bi bi-moon-stars-fill
+                  }`}
+                      ></i>{" "}
+                      Dark
+                    </small>
+                  </button>
+                </li>
+                <li className="d-flex justify-content-center">
+                  <button
+                    type="button"
+                    className={`dropdown-item d-flex align-items-center drop-mode-item ${
+                      props.modeActive === "Auto" ? "active" : ""
+                    }`}
+                    style={{ maxWidth: "94%" }}
+                    onClick={() => props.autoDetectMode()}
+                  >
+                    <small>
+                      <i
+                        className={`me-2 fa fa-desktop
+                  }`}
+                      ></i>{" "}
+                      Auto
+                    </small>
+                  </button>
+                </li>
+              </ul>
             </div>
             <div className="btn p-0 m-0 border-0">
               <Themes

@@ -11,67 +11,80 @@ export default function Themes(props) {
           className={`theme-menu dropdown-toggle text-${
             props.mode === "dark" ? "light" : "dark"
           }`}
+          id="theme-toggler"
           type="button"
           data-bs-toggle="dropdown"
-          data-bs-auto-close="true"
           aria-expanded="false"
+          data-bs-auto-close="true"
         >
           Theme
         </div>
 
-        <ul className="dropdown-menu shadow">
-          <li>
+        <ul className="dropdown-menu shadow" aria-labelledby="theme-toggler">
+          <li className="d-flex justify-content-center">
             <button
               type="button"
-              className="dropdown-item drop-purple"
+              className={`dropdown-item drop-purple ${
+                props.theme === "purple" ? "active active-purple" : ""
+              }`}
               onClick={(e) => props.toggleTheme("purple")}
             >
-              Default (Purple)
+              <small>Default (Purple)</small>
             </button>
           </li>
-          <li>
+          <li className="d-flex justify-content-center">
             <button
               type="button"
-              className="dropdown-item drop-primary"
+              className={`dropdown-item drop-primary ${
+                props.theme === "primary" ? "active active-primary" : ""
+              }`}
               onClick={(e) => props.toggleTheme("primary")}
             >
-              Blue
+              <small>Blue</small>
             </button>
           </li>
-          <li>
+          <li className="d-flex justify-content-center">
             <button
               type="button"
-              className="dropdown-item drop-success"
+              className={`dropdown-item drop-success ${
+                props.theme === "success" ? "active active-success" : ""
+              }`}
               onClick={(e) => props.toggleTheme("success")}
             >
-              Green
+              <small>Green</small>
             </button>
           </li>
-          <li>
+          <li className="d-flex justify-content-center">
             <button
               type="button"
-              className="dropdown-item drop-warning"
+              className={`dropdown-item drop-warning ${
+                props.theme === "warning" ? "active active-warning" : ""
+              }`}
               onClick={(e) => props.toggleTheme("warning")}
             >
-              Yellow
+              <small>Yellow</small>
             </button>
           </li>
-          <li>
+          <li className="d-flex justify-content-center">
             <button
               type="button"
-              className="dropdown-item drop-danger"
+              className={`dropdown-item drop-danger ${
+                props.theme === "danger" ? "active active-danger" : ""
+              }`}
               onClick={(e) => props.toggleTheme("danger")}
             >
-              Red
+              <small>Red</small>
             </button>
           </li>
-          <li>
+          <li className="d-flex justify-content-center">
             <button
               type="button"
-              className="dropdown-item drop-cyan"
+              className={`dropdown-item drop-cyan ${
+                props.theme === "info" ? "active active-info" : ""
+              }`}
               onClick={(e) => props.toggleTheme("info")}
             >
-              Cyan
+              <small>Cyan</small>
             </button>
           </li>
         </ul>

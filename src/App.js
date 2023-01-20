@@ -11,6 +11,10 @@ import Footer from "./doc/Footer";
 
 function App() {
   const [toast, setToast] = useState(null);
+  const getActiveMode = () => {
+    return JSON.parse(localStorage.getItem("activeMode")) || "Auto";
+  };
+  const [modeActive, setModeActive] = useState(getActiveMode);
 
   const showToast = (type, message) => {
     setToast({
@@ -30,6 +34,7 @@ function App() {
       const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
       if (darkThemeMq.matches) {
         // Theme set to dark.
+        setModeActive("Auto");
         showToast(
           "Dark Mode",
           "Dark mode has been enabled, accordance to device's system theme settings."
@@ -37,6 +42,7 @@ function App() {
         return "dark";
       } else {
         // Theme set to light.
+        setModeActive("Auto");
         showToast(
           "Light Mode",
           "Light mode has been enabled, accordance to device's system theme settings."
@@ -45,6 +51,31 @@ function App() {
       }
     }
   }, []);
+
+  const autoDetectMode = () => {
+    document.getElementById("dropShow").classList.remove("show");
+    document.getElementById("toggleMode").classList.remove("show");
+    const darkThemeMqK = window.matchMedia("(prefers-color-scheme: dark)");
+    if (darkThemeMqK.matches) {
+      // Theme set to dark.
+      setModeActive("Auto");
+      setMode("dark");
+      showAlert(
+        "Dark mode has been enabled, accordance to device's system theme settings.",
+        "Dark Mode"
+      );
+      return "dark";
+    } else {
+      // Theme set to light.
+      setModeActive("Auto");
+      setMode("light");
+      showAlert(
+        "Light mode has been enabled, accordance to device's system theme settings.",
+        "Light Mode"
+      );
+      return "light";
+    }
+  };
 
   const getTheme = () => {
     return JSON.parse(localStorage.getItem("theme")) || "purple";
@@ -58,7 +89,8 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("mode", JSON.stringify(mode));
-  }, [mode]);
+    localStorage.setItem("activeMode", JSON.stringify(modeActive));
+  }, [mode, modeActive]);
 
   if (mode === "dark") {
     document.body.style.backgroundColor = "#0f0f0f";
@@ -81,15 +113,17 @@ function App() {
     }, 1500);
   };
 
-  const toggleMode = () => {
-    if (mode === "light") {
-      setMode("dark");
+  const toggleMode = (event) => {
+    document.getElementById("toggleMode").classList.remove("show");
+    setMode(event);
+    setModeActive(event);
+    document.getElementById("dropShow").classList.remove("show");
+    if (event === "light") {
       document.body.style.backgroundColor = "#0f0f0f";
-      showAlert("Dark mode had been enabled", "success");
-    } else {
-      setMode("light");
-      document.body.style.backgroundColor = "white";
       showAlert("Light mode had been enabled", "success");
+    } else {
+      document.body.style.backgroundColor = "white";
+      showAlert("Dark mode had been enabled", "success");
     }
   };
 
@@ -107,6 +141,8 @@ function App() {
             mode={mode}
             toggleMode={toggleMode}
             toggleTheme={toggleTheme}
+            modeActive={modeActive}
+            autoDetectMode={autoDetectMode}
           />
           <Alert alert={alert} theme={theme} toast={toast} mode={mode} />
           <div

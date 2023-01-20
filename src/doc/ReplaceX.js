@@ -77,13 +77,6 @@ function ReplaceX(props) {
               </p>
               <button
                 type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
                 className={`btn btn-${props.theme}`}
                 data-bs-dismiss="modal"
                 onClick={props.handleReplace}
