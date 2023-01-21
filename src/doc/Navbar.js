@@ -177,6 +177,11 @@ function Navbar(props) {
                 </NavLink>
               </li>
             </ul>
+            <hr
+              className={`d-sm-block d-lg-none text-${
+                props.mode === "dark" ? "light" : "dark"
+              }`}
+            />
             {/* <div
               className={`form-check-inline d-sm-none d-lg-block ${
                 props.mode === "dark" ? "dark" : "light"
@@ -281,6 +286,11 @@ function Navbar(props) {
                 </li>
               </ul>
             </div>
+            <hr
+              className={`d-sm-block d-lg-none text-${
+                props.mode === "dark" ? "light" : "dark"
+              }`}
+            />
             <div className="btn p-0 m-0 border-0">
               <Themes
                 toggleMode={props.toggleMode}
