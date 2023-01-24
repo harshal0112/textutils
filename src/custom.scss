@@ -186,6 +186,31 @@ body {
     border-radius: 0.25rem !important;
 }
 
+.mode-active-purple .active, .mode-btn-purple:active {
+    background-color: $purple !important;
+}
+
+.mode-active-danger .active, .mode-btn-danger:active {
+    background-color: $danger !important;
+}
+
+.mode-active-primary .active, .mode-btn-primary:active {
+    background-color: $primary !important;
+}
+
+.mode-active-success .active, .mode-btn-success:active {
+    background-color: $success !important;
+}
+
+.mode-active-warning .active, .mode-btn-warning:active {
+    background-color: $warning !important;
+    color: #011010 !important;
+}
+
+.mode-active-info .active, .mode-btn-info:active {
+    background-color: $info !important;
+    color: #011010 !important;
+}
 // -------------------------------------------------------------------------------------------------------
 // Switch to Dark Mode
 

@@ -4,7 +4,7 @@ export default function Themes(props) {
   return (
     <>
       <div
-        className="dropdown mr-sm-3 mr-lg-3 form-check-inline"
+        className="dropdown mr-sm-3 mr-lg-3 navbar-nav form-check-inline"
         data-bs-theme={props.mode}
       >
         <div
